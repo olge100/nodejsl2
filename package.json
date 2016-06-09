@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/olge100/nodejsl2.git"
   },
-  "author": "Andrew Woo",
+  "author": "Andrew Woo <in007@qq.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/olge100/nodejsl2/issues"

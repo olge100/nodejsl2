@@ -9,7 +9,7 @@ import path from 'path';
 import express from 'express';
 import serveStatic from 'serve-static';
 import bodyParser from 'body-parser';
-import multiparty from 'multiparty';
+import multiparty from 'connect-multiparty';
 
 module.exports = function(done){
   const debug = $.createDebug('init:express');
@@ -19,6 +19,7 @@ module.exports = function(done){
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended:false}));
+  app.use(multiparty());
 
   const router = express.Router();
   $.router = router;

@@ -8,7 +8,7 @@
 
 $.method('user.add').call({
   name:'ssy',
-  nickname:'是谁呀'，
+  nickname:'是谁呀',
   email:'xxx@x.com'
 },console.log);
 /*

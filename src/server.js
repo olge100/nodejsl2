@@ -29,20 +29,27 @@ $.init.add((done)=>{
   }
     $.env = env;
     done();
-})
+});
 
 //初始化mongodb
 $.init.load(path.resolve(__dirname,'init','mongodb.js'));
 
 //加载models
+debug('load models');
 $.init.load(path.resolve(__dirname,'models'));
 
 //加载methods
+debug('load methods');
 $.init.load(path.resolve(__dirname,'methods'));
 
-//初始化Express
+//初始化express
 $.init.load(path.resolve(__dirname,'init','express.js'));
+
+//初始化缓存
+$.init.load(path.resolve(__dirname,'init','cache.js'));
+
 //加载路由
+debug('load routes');
 $.init.load(path.resolve(__dirname,'routes'));
 
 //初始化
@@ -51,7 +58,8 @@ $.init((err)=>{
     console.error(err);
     process.exit(-1);
   }else {
-    console.log("inited[env=%s]",$.env);
+    debug(`inited[env=${$.env}]`);
+    //console.log("inited[env=%s]",$.env);
   }
 /*
   const item = new $.model.User({
@@ -65,6 +73,7 @@ $.init((err)=>{
   });
   item.save(console.log);
 */
-  require('./test.js');
+
+  //require('./test.js');
 
 });

@@ -15,7 +15,7 @@ module.exports = function(done){
     debug('get:/api/login_user');
 
     if(typeof(req.session)!='undefined'){
-      res.json({user:req.session,token:req.session.hasOwnProperty('logout_token')?req.session.logout_token:''});
+      res.json({user:req.session.user,token:req.session.hasOwnProperty('logout_token')?req.session.logout_token:''});
     }else{
       console.log('req.session:'+req.session);
       res.json({});
@@ -36,8 +36,8 @@ module.exports = function(done){
     if(!$.utils.validatePassword(req.body.password,user.password)){
       throw new Error('incorrect password');
     }
-
-    req.session = user;
+    console.log(req.session);
+    req.session.user = user;
     req.session.logout_token = $.utils.randomString(20);
 
     res.json({success:true,token:req.session.logout_token});

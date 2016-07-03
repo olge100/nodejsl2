@@ -17,13 +17,14 @@ module.exports = function(done){
   });
 
   $.cache = redis;
+  /*
   $.express.use(session({
-    store:redis,
+    //store:redis,
     secret:$.config.get('web.session.secret'),
-    resave:false,
-    saveUninitialized:false,
+    //resave:false,
+    //saveUninitialized:false,
   }));
-
+*/
   done();
 
 };

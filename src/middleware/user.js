@@ -6,20 +6,17 @@
 *
 */
 import validator from 'validator';
-import createDebug from 'debug';
-
-//初建debug函数
-$.createDebug = function(name){
-  return createDebug('my:'+name);
-};
-const debug = $.createDebug('middleware:user');
 
 module.exports = function(done){
 
+  const debug = $.createDebug('middleware:user');
+
   $.checkLogin = function(req,res,next){
+    debug('check login');
     if (!(req.session && req.session.user && req.session.user._id)) {
       throw new Error('please login firstly');
     }
+    debug(`user._id:${req.session.user._id}`);
     next();
   };
 

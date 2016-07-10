@@ -9,11 +9,15 @@
 
 module.exports = function(done){
 
+  const debug = $.createDebug('routes:topic');
+
   $.router.post('/api/topic/add', $.checkLogin, async function(req,res,next){
+
+    debug('/api/topic/add:'+req.session.user._id);
     req.body.authorId = req.session.user._id;
 
-    if ('tag' in req.body) {
-      req.body.tags = req.body.tags.split(',').map(v = v.trim()).filter(v => v);
+    if ('tags' in req.body) {
+      req.body.tags = req.body.tags.split(',').map(v => v.trim()).filter(v => v);
     }
 
     const topic = await $.method('topic.add').call(req.body);
@@ -23,8 +27,14 @@ module.exports = function(done){
 
   $.router.get('/api/topic/list',async function(req,res,next){
 
-    if ('tag' in req.query) {
-      req.body.tags = req.body.tags.split(',').map(v = v.trim()).filter(v => v);
+    debug('/api/topic/list');
+
+    if ('tags' in req.query) {
+      const tags = req.query.tags;
+      const tagsplit = tags.split(',');
+      debug('tags:'+tags);
+      debug('tags split:'+ Array.isArray(tagsplit));
+      req.query.tags = req.query.tags.split(',').map(v => v.trim()).filter(v => v);
     }
 
     const list = await $.method('topic.list').call(req.query);
@@ -41,6 +51,20 @@ module.exports = function(done){
     res.json({success:true,topic:topic});
 
   });
+
+    $.router.get('/api/topic/item/:topic_id/comment/add',async function(req,res,next){
+      req.body._id = req.params.topic_id;
+      req.body.authorId = req.session.user_id;
+      const comment = await
+
+      const query = {
+        _id:
+      }
+    });
+
+    $.router.get('/api/topic/item/:topic_id/comment/add',async function(req,res,next){
+
+    });
 
   done();
 };

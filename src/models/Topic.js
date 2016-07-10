@@ -22,7 +22,7 @@ module.exports = function(done){
     updatedAt: {type: Date,index:true},
     lastCommentedAt:{type:Date,index:true},
     comments:[{
-      cid:ObjectId,
+      //cid:ObjectId,会自动生成
       authorId:ObjectId,
       createdAt:Date,
     }]

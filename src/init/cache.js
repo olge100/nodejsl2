@@ -16,15 +16,20 @@ module.exports = function(done){
     port:$.config.get('cache.redis.port')
   });
 
-  $.cache = redis;
-  /*
-  $.express.use(session({
-    //store:redis,
+  const cache = redis;
+
+  //实例化session
+  $.session = session({
+    /*genid: function(req) {
+      return genuuid(); // use UUIDs for session IDs
+    },*/
+    store:redis,
     secret:$.config.get('web.session.secret'),
-    //resave:false,
-    //saveUninitialized:false,
-  }));
-*/
+    resave:false,
+    saveUninitialized:false,
+    //cookie: { secure: true }
+  });
+
   done();
 
 };

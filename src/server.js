@@ -42,13 +42,13 @@ $.init.load(path.resolve(__dirname,'models'));
 debug('load methods');
 $.init.load(path.resolve(__dirname,'methods'));
 
+//初始化缓存
+$.init.load(path.resolve(__dirname,'init','cache.js'));
+
 //初始化express
 $.init.load(path.resolve(__dirname,'init','express.js'));
 //初始化中间件
 $.init.load(path.resolve(__dirname,'middleware'));
-
-//初始化缓存
-$.init.load(path.resolve(__dirname,'init','cache.js'));
 
 //加载路由
 debug('load routes');

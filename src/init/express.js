@@ -10,8 +10,6 @@ import express from 'express';
 import serveStatic from 'serve-static';
 import bodyParser from 'body-parser';
 import multiparty from 'connect-multiparty';
-import session from 'express-session';
-
 
 //var con_redis = require('connect-redis')(express);
 
@@ -23,9 +21,9 @@ module.exports = function(done){
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended:false}));
   app.use(multiparty());
+  app.use($.session);
 
   const router = express.Router();
-  //$.express = app;
   $.router = router;
 
 
@@ -45,13 +43,6 @@ module.exports = function(done){
   $.router = routerWrap;
 
   app.use(router);
-  app.use(session({
-    //store:redis,
-    secret:$.config.get('web.session.secret'),
-    resave:false,
-    saveUninitialized:false,
-    cookie: { secure: true }
-  }));
   app.use('/static',serveStatic(path.resolve(__dirname,'../../static')));
 
   app.use('/api',function(err,req,res,next){
@@ -60,6 +51,7 @@ module.exports = function(done){
   });
 
   debug(`listen: ${$.config.get('web.port')}`);
+  
   app.listen($.config.get('web.port'),(err) => {
     done(err);
   });
